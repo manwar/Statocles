@@ -26,7 +26,6 @@ before_install:
     - build-perl
     - perl -V
     - cpan-install Devel::Hide
-    - cpanm -v Test::Differences
     - build-dist
     - cd $BUILD_DIR
 
