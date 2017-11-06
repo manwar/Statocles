@@ -5,7 +5,9 @@ use Statocles::Page::Plain;
 my $SHARE_DIR = path( __DIR__, '..', 'share' );
 
 subtest 'build events' => sub {
-    my ( $site, $build_dir, $deploy_dir ) = build_test_site_apps( $SHARE_DIR );
+    my ( $site, $build_t, $deploy_t ) = build_test_site_apps( $SHARE_DIR );
+    my $build_dir = path( $build_t );
+    my $deploy_dir = path( $deploy_t );
 
     $site->on( 'before_build_write', sub {
         subtest 'before_build_write' => sub {

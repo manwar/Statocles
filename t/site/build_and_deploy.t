@@ -4,7 +4,9 @@ use My::Test;
 use Statocles::Site;
 my $SHARE_DIR = path( __DIR__, '..', 'share' );
 
-my ( $site, $build_dir, $deploy_dir ) = build_test_site_apps( $SHARE_DIR );
+my ( $site, $build_t, $deploy_t ) = build_test_site_apps( $SHARE_DIR );
+my $build_dir = path( $build_t );
+my $deploy_dir = path( $deploy_t );
 
 sub test_page_content {
     my ( $site, $page, $dir ) = @_;
@@ -110,13 +112,15 @@ subtest 'deploy' => sub {
 };
 
 subtest 'base URL with folder rewrites content' => sub {
-    my ( $site, $build_dir, $deploy_dir ) = build_test_site_apps(
+    my ( $site, $build_t, $deploy_t ) = build_test_site_apps(
         $SHARE_DIR,
         base_url => '/', # The default
         deploy => {
             base_url => 'http://example.com/deploy/',
         },
     );
+    my $build_dir = path( $build_t );
+    my $deploy_dir = path( $deploy_t );
 
     subtest 'build' => sub {
         $site->build;

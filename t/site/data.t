@@ -3,7 +3,7 @@ use Test::Lib;
 use My::Test;
 my $SHARE_DIR = path( __DIR__, '..', 'share' );
 
-my ( $site, $build_dir, $deploy_dir ) = build_test_site_apps(
+my ( $site, $build_t, $deploy_t ) = build_test_site_apps(
     $SHARE_DIR,
     base_url => 'http://example.com/test',
     deploy => {
@@ -13,6 +13,8 @@ my ( $site, $build_dir, $deploy_dir ) = build_test_site_apps(
         profile_url => '/profile',
     },
 );
+my $build_dir = path( $build_t );
+my $deploy_dir = path( $deploy_t );
 
 sub test_page_content {
     my ( $site, $page, $dir, $deploy ) = @_;

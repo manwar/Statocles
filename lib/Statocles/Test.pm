@@ -4,6 +4,7 @@ our $VERSION = '0.087';
 
 use Statocles::Base;
 use Statocles::Util qw( dircopy derp );
+use File::Temp;
 
 use base qw( Exporter );
 our @EXPORT_OK = qw(
@@ -68,8 +69,8 @@ deploy dir.
 sub build_test_site_apps {
     my ( $share_dir, %site_args ) = @_;
 
-    my $build_dir = Path::Tiny->tempdir;
-    my $deploy_dir = Path::Tiny->tempdir;
+    my $build_dir = File::Temp->newdir;
+    my $deploy_dir = File::Temp->newdir;
 
     $site_args{build_store}{path} = $build_dir;
     $site_args{deploy}{path} = $deploy_dir;
@@ -250,7 +251,7 @@ temporary directories
 sub build_temp_site {
     my ( $share_dir ) = @_;
 
-    my $tmp = Path::Tiny->tempdir;
+    my $tmp = File::Temp->newdir;
     dircopy $share_dir->child( qw( app blog ) ), $tmp->child( 'blog' );
     dircopy $share_dir->child( 'theme' ), $tmp->child( 'theme' );
     $tmp->child( 'build_site' )->mkpath;

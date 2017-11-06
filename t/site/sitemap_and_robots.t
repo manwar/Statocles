@@ -11,7 +11,7 @@ my $blog = Statocles::App::Blog->new(
     page_size => 2,
 );
 
-my ( $site, $build_dir, $deploy_dir ) = build_test_site_apps(
+my ( $site, $build_t, $deploy_t ) = build_test_site_apps(
     $SHARE_DIR,
     apps => {
         blog => $blog,
@@ -19,6 +19,8 @@ my ( $site, $build_dir, $deploy_dir ) = build_test_site_apps(
     index => '/blog',
     base_url => 'http://example.com',
 );
+my $build_dir = path( $build_t );
+my $deploy_dir = path( $deploy_t );
 
 my @pages = map { $_->pages } values %{ $site->apps };
 my $today = DateTime::Moonpig->now( time_zone => 'local' )->strftime( '%Y-%m-%d' );

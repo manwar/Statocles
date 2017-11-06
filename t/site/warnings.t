@@ -29,13 +29,15 @@ subtest 'build two pages with same path' => sub {
         ],
     );
 
-    my ( $site, $build_dir, $deploy_dir ) = build_test_site_apps(
+    my ( $site, $build_t, $deploy_t ) = build_test_site_apps(
         $SHARE_DIR,
         apps => {
             static => $static,
             basic => $basic,
         },
     );
+    my $build_dir = path( $build_t );
+    my $deploy_dir = path( $deploy_t );
 
     my ( $out, $err, $exit ) = capture {
         $site->build;
@@ -68,12 +70,14 @@ subtest 'app generates two pages with the same path' => sub {
         ],
     );
 
-    my ( $site, $build_dir, $deploy_dir ) = build_test_site_apps(
+    my ( $site, $build_t, $deploy_t ) = build_test_site_apps(
         $SHARE_DIR,
         apps => {
             test => $app,
         },
     );
+    my $build_dir = path( $build_t );
+    my $deploy_dir = path( $deploy_t );
 
     my ( $out, $err, $exit ) = capture {
         $site->build;

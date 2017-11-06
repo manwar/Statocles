@@ -7,7 +7,9 @@ use Mojo::DOM;
 my $SHARE_DIR = path( __DIR__, '..', 'share' );
 
 sub test_site {
-    my ( $site, $build_dir, $deploy_dir ) = @_;
+    my ( $site, $build_t, $deploy_t ) = @_;
+    my $build_dir = path( $build_t );
+    my $deploy_dir = path( $deploy_t );
 
     subtest 'build' => sub {
         $site->build;
@@ -82,7 +84,7 @@ subtest 'index links in basic app' => sub {
         store => $SHARE_DIR->child( qw( app basic ) ),
     );
 
-    my ( $site, $build_dir, $deploy_dir ) = build_test_site_apps(
+    my ( $site, $build_t, $deploy_t ) = build_test_site_apps(
         $SHARE_DIR,
         base_url => 'http://example.com/mysite',
         index => '/page/foo/other.html',
@@ -90,6 +92,8 @@ subtest 'index links in basic app' => sub {
             basic => $basic,
         },
     );
+    my $build_dir = path( $build_t );
+    my $deploy_dir = path( $deploy_t );
 
     $site->build;
 
@@ -120,13 +124,15 @@ subtest 'allow document path in index' => sub {
         store => $SHARE_DIR->child( qw( app basic ) ),
     );
 
-    my ( $site, $build_dir, $deploy_dir ) = build_test_site_apps(
+    my ( $site, $build_t, $deploy_t ) = build_test_site_apps(
         $SHARE_DIR,
         index => '/page/foo/other.markdown',
         apps => {
             basic => $basic,
         },
     );
+    my $build_dir = path( $build_t );
+    my $deploy_dir = path( $deploy_t );
 
     $site->build;
 
